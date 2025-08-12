@@ -4,7 +4,9 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 All Users
             </h2>
-            <a href="{{ route('roles.create') }}" class="bg-slate-700 text-sm rounded-md text-white px-3 py-2">Create</a>
+            @can('create users')
+                <a href="{{ route('user.create') }}" class="bg-slate-700 text-sm rounded-md text-white px-3 py-2">Create</a>
+            @endcan
         </div>
     </x-slot>
 
@@ -35,10 +37,15 @@
                                         {{ $value->roles->pluck('name')->implode(',') }}
                                     </td>
                                     <td class="px-6 py-5 flex gap-2">
-                                        <a href="{{ route('edit', $value->id) }}"
-                                            class="bg-slate-700 text-sm rounded-md text-white px-2 py-1">Update</a>
-                                        <a href="{{ route('role.delete', $value->id) }}"
-                                            class="bg-red-700 text-sm rounded-md text-white px-2 py-1">Delete</a>
+
+                                        @can('update users')
+                                            <a href="{{ route('edit', $value->id) }}"
+                                                class="bg-slate-700 text-sm rounded-md text-white px-2 py-1">Update</a>
+                                        @endcan
+                                        @can('delete users')
+                                            <a href="{{ route('delete', $value->id) }}"
+                                                class="bg-red-700 text-sm rounded-md text-white px-2 py-1">Delete</a>
+                                        @endcan
 
 
                                     </td>

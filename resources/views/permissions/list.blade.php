@@ -4,8 +4,10 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 All Permissions
             </h2>
-            <a href="{{ route('permission.create') }}"
-                class="bg-slate-700 text-sm rounded-md text-white px-3 py-2">Create</a>
+            @can('create permissions')
+                <a href="{{ route('permission.create') }}"
+                    class="bg-slate-700 text-sm rounded-md text-white px-3 py-2">Create</a>
+            @endcan
         </div>
     </x-slot>
 
@@ -31,10 +33,11 @@
                                         {{ $value->created_at->format('d M, Y') }}
                                     </td>
                                     <td class="px-6 py-5 flex gap-2">
-                                        <a href=""
-                                            class="bg-slate-700 text-sm rounded-md text-white px-2 py-1">Update</a>
-                                        <a href=""
-                                            class="bg-red-700 text-sm rounded-md text-white px-2 py-1">Delete</a>
+
+                                        @can('delete permissions')
+                                            <a href="{{ route('permission.delete', $value->id) }}"
+                                                class="bg-red-700 text-sm rounded-md text-white px-2 py-1">Delete</a>
+                                        @endcan
 
 
                                     </td>

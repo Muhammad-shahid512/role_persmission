@@ -6,8 +6,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 
-Route::get('/shahid', function () {
+Route::get('/', function () {
     return view('welcome');
 });
 
@@ -23,6 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/permission', [PermissionController::class, 'index'])->name('permissions');
     Route::get('/permission/create', [PermissionController::class, 'create'])->name('permission.create');
     Route::get('/permission/store', [PermissionController::class, 'store'])->name('permission.store');
+    Route::get('/permission/delete/{id}', [PermissionController::class, 'delete'])->name('permission.delete');
 
 
 
@@ -44,10 +46,24 @@ Route::middleware('auth')->group(function () {
 
 
 
+      Route::get('user/create', [UsersController::class, 'create'])->name('user.create');
+      Route::post('user/post', [UsersController::class, 'store'])->name('user.post');
       Route::get('users', [UsersController::class, 'index'])->name('users');
       Route::get('user/edit/{id}', [UsersController::class, 'edit'])->name('edit');
       Route::post('user/update/{id}', [UsersController::class, 'update'])->name('update');
+      Route::get('user/delete/{id}', [UsersController::class, 'delete'])->name('delete');
 
 });
 
 require __DIR__.'/auth.php';
+
+
+Route::get('/cls', function () {
+    $output = '';
+    $output .= Artisan::call('config:clear');
+    $output .= Artisan::call('route:clear');
+    $output .= Artisan::call('cache:clear');
+    $output .= Artisan::call('view:clear');
+
+    return nl2br("Caches cleared!");
+});

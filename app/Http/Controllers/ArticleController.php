@@ -6,9 +6,19 @@ use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use PhpParser\Node\Arg;
-
-class ArticleController extends Controller
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware; 
+class ArticleController extends Controller  implements HasMiddleware
 {
+    public static function middleware():array
+    {
+        return[
+new middleware('permission:view articles',only:['index']),
+new middleware('permission:create articles',only:['create']),
+new middleware('permission:update articles',only:['edit']),
+new middleware('permission:delete articles',only:['delete']),
+        ];
+    }
 
     public function index(){
         $article=Article::orderBy("title","ASC")->paginate(10);
@@ -37,7 +47,6 @@ return redirect()->route('articles')->with('message',"Article Create successfull
             return redirect()->route('article.create')->withErrors($validator);
         }
     }
-
 
     public function edit($id){
         $article=Article::findOrFail($id);

@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Permission/Create
+                Roles/Create
             </h2>
             <a href="{{ route('permissions') }}" class="bg-slate-700 text-sm rounded-md text-white px-3 py-2">Back</a>
         </div>

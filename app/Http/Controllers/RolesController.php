@@ -7,9 +7,20 @@ use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Contracts\Permission;
 use Spatie\Permission\Models\Permission as ModelsPermission;
 use Spatie\Permission\Models\Role;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware; 
 
-class RolesController extends Controller
+class RolesController extends Controller  implements HasMiddleware
 {
+     public static function middleware():array
+    {
+        return[
+new middleware('permission:view roles',only:['index']),
+new middleware('permission:create roles',only:['create']),
+new middleware('permission:update roles',only:['edit']),
+new middleware('permission:delete roles',only:['destroy']),
+        ];
+    }
     public function index(){
 
         $roles=Role::orderBy("name","ASC")->paginate(10);
@@ -41,7 +52,7 @@ foreach($request->permissions as $value){
     $role->givePermissionTo($value);
 }
 }
-return redirect()->route('roles')->with('message',"Permission successfully added");
+return redirect()->route('roles')->with('message',"Roles successfully added");
         }
         else{
             return redirect()->route('permission.create')->withErrors($validator);
@@ -92,7 +103,7 @@ else{
 $role->syncPermissions([]);
 
 }
-return redirect()->route('roles')->with('message',"Permission successfully added");
+return redirect()->route('roles')->with('message',"Roles Updates successfully");
         }
         else{
             return redirect()->route('permission.create')->withErrors($validator);

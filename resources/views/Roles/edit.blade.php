@@ -2,9 +2,9 @@
     <x-slot name="header">
         <div class="flex justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Permission/Create
+                Edit/Roles
             </h2>
-            <a href="{{ route('permissions') }}" class="bg-slate-700 text-sm rounded-md text-white px-3 py-2">Back</a>
+            <a href="{{ route('roles') }}" class="bg-slate-700 text-sm rounded-md text-white px-3 py-2">Back</a>
         </div>
     </x-slot>
 
@@ -39,7 +39,7 @@
                                 @endif
 
                             </div>
-                            <button class="bg-slate-700 text-sm rounded-md text-white mt-5 px-5 py-3">Submit</button>
+                            <button class="bg-slate-700 text-sm rounded-md text-white mt-5 px-5 py-3">Edit</button>
                         </div>
 
                     </form>
