@@ -4,9 +4,10 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RolesController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
+Route::get('/shahid', function () {
     return view('welcome');
 });
 
@@ -41,6 +42,11 @@ Route::middleware('auth')->group(function () {
          Route::post('article/update/post/{id}', [ArticleController::class, 'update'])->name('article.update');
          Route::get('article/delete/{id}', [ArticleController::class, 'delete'])->name('article.delete');
 
+
+
+      Route::get('users', [UsersController::class, 'index'])->name('users');
+      Route::get('user/edit/{id}', [UsersController::class, 'edit'])->name('edit');
+      Route::post('user/update/{id}', [UsersController::class, 'update'])->name('update');
 
 });
 
